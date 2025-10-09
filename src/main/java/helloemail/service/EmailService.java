@@ -19,4 +19,25 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+     public void sendMailWithMultipleRecipients(String [] to, String subject, String body) throws MessagingException {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(body);
+
+        mailSender.send(message);
+    }
+
+    public void sendHTMLMessage(String[] to, String subject, String htmlContent) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+
+       message.setRecipients(Message.RecipientType.TO, Arrays.toString(to));
+       message.setSubject(subject);
+
+       message.setContent(htmlContent, "text/html; charset=utf-8");
+
+        mailSender.send(message);
+    }
 }
