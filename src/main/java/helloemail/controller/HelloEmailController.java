@@ -24,4 +24,21 @@ public class HelloEmailController {
         );}
 
 
+    @PostMapping("/sendToMultipleRecipients")
+    public void sendToMultipleRecipients(@RequestBody EmailRequest request) throws MessagingException {
+        String recipients = request.getTo();
+        String [] myRecipients = recipients.split(";");
+        emailService.sendMailWithMultipleRecipients(myRecipients, request.getSubject(), request.getBody());
+    }
+
+
+    @PostMapping("/sendHTMLMessage")
+    public void sendHTMLMessage(@RequestBody EmailRequest request) throws MessagingException {
+        String recipients = request.getTo();
+        String [] myRecipients = recipients.split(";");
+
+        emailService.sendHTMLMessage(myRecipients,  request.getSubject(), request.getBody());
+    }
+
+    
 }
